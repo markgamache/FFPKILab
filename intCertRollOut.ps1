@@ -249,6 +249,7 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
             $did | ConvertFrom-Json
 
 
+<#
 
     # Gamache FF Server HA ICA  old and expired  create a new one with same key and new dates. issue one cert from this
         $did = & python3 ./DoCAStuff.py --mode NewSubCA --basepath $baseP --name "Gamache FF Server HA ICA" --signer "Gamache FF Int CA 2018" --validfrom janOf2018 --validto marchOf2018 --keysize 2048 --pathlength 0
@@ -275,7 +276,7 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
             ren "$($certBack.basePath)/cert.pem" "$($certBack.basePath)/certold.rem"
             $oldHACert = "$($certBack.basePath)/certold.rem"
             #Start-Sleep -Seconds 2
-
+            #>
 
 
     # Gamache FF Server HA ICA  new
