@@ -47,8 +47,8 @@ if($BuildType -eq "main")
     $baseP = "/etc/nginx/pki"
     $artifacts = $baseP + "/artifacts/"
 
-    mkdir /var/www/pki.pkilab.markgamache.com
-    Copy-Item /etc/nginx/pki/artifacts/*.* /var/www/pki.pkilab.markgamache.com/
+    mkdir /var/www/pki.fflab.markgamache.com
+    Copy-Item /etc/nginx/pki/artifacts/*.* /var/www/pki.fflab.markgamache.com/
 
 
    
