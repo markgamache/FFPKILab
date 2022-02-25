@@ -31,7 +31,7 @@ cd ..
 
 & mkdir /etc/nginx/pki
 
-cd ./BadPkiServers/ 
+cd ./FFPKILab/ 
 
 if($BuildType -eq "main")
 {
@@ -39,7 +39,7 @@ if($BuildType -eq "main")
     ./intCertRollOut.ps1
 
     cd ..
-    cd ./BadPkiServers/ 
+    cd ./FFPKILab/ 
     ./buildConf.ps1
 
     ./setupFolders.ps1
