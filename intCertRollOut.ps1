@@ -20,7 +20,7 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
 
 
 # Gamache FF Trust Root 2018
-    $did = & python3 ./DoCAStuff.py --mode NewRootCA --basepath $baseP --name "Gamache FF Trust Root 2018" --validfrom janOf2018 --validto janOf2048 --keysize 4096 --pathlength 2 # --ncallowed "fflab.markgamache.com,mtlspkilab.markgamache.com"
+    $did = & python3 ./DoCAStuff.py --mode NewRootCA --basepath $baseP --name "Gamache FF Trust Root 2018" --validfrom janOf2018 --validto janOf2048 --keysize 4096 --pathlength 2  --ncallowed "fflab.markgamache.com,mtlspkilab.markgamache.com"
     $certBack = $did | ConvertFrom-Json
     $rootCert = $certBack
 
