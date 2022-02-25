@@ -4,8 +4,8 @@ $names = (dir -Directory /etc/nginx/pki | where Name -like "*.*").name
 
 
 
-cat "/etc/nginx/pki/Gamache Trust Root 2018/cert.pem" > /etc/nginx/pki/clientVer.pem
-cat '/etc/nginx/pki/Gamache Int CA 1/cert.pem' >> /etc/nginx/pki/clientVer.pem
+cat "/etc/nginx/pki/Gamache FF Trust Root 2018/cert.pem" > /etc/nginx/pki/clientVer.pem
+cat '/etc/nginx/pki/Gamache FF Int CA 1/cert.pem' >> /etc/nginx/pki/clientVer.pem
 
 #$bigSrting = "ssl_client_certificate /etc/nginx/pki/Gamache Trust Root 2018/cert.pem;`n"
 $bigSrting = "add_header Cache-Control `"no-cache`";"
