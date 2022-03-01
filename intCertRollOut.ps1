@@ -387,7 +387,7 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
                 gc $c >> "$($baseP)/mega.fflab.markgamache.com/certwithchain.pem"
             }
 
-
+            <#
             # 
             #  chad.fflab.markgamache.com the cert 
             $did = & python3 ./DoCAStuff.py --mode NewLeafTLS --basepath $baseP --name "chad.fflab.markgamache.com" --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear --keysize 2048 
@@ -396,6 +396,7 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
             gc $oldHACert >> "$($baseP)/chad.fflab.markgamache.com/certwithchain.pem"
             gc $longInt >> "$($baseP)/chad.fflab.markgamache.com/certwithchain.pem"
 
+            #>
 
             #lassie
             # lassie  client certr from CA that is not in list for banking or trading
