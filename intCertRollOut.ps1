@@ -175,6 +175,44 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
         $oldSAICACert = "$($certBack.basePath)/certold.rem"
 
 
+
+
+
+
+        # Gamache FF Some Assurance ICA 2021  old
+        $did = & python3 ./DoCAStuff.py --mode NewSubCA --basepath $baseP --name "Gamache FF Some Assurance ICA 2021" --signer "Gamache FF Int CA 2018" --validfrom janOf2018 --validto marchOf2018 --keysize 2048 --pathlength 0
+        $certBack = $did | ConvertFrom-Json
+
+        #AIA
+        "$($baseHTTP)$($certBack.serial).crt" | Out-File -FilePath "$($certBack.basePath)/aia.txt"  -Encoding ascii -NoNewline
+        Copy-Item -Force  "$($certBack.DERFile)" "$($artifacts)/$($certBack.serial).crt"
+
+        #crl
+        "badf00d" | Out-File -FilePath "$($certBack.basePath)/revoked.txt"  -Encoding ascii
+        "$($baseHTTP)$($certBack.serial).crl" | Out-File -FilePath "$($certBack.basePath)/cdp.txt"  -Encoding ascii -NoNewline
+        $did = & python3 ./DoCAStuff.py --mode SignCRL --basepath $baseP --signer "Gamache FF Some Assurance ICA 2021" --validfrom dtMinusTenMin --validto dtPlusOneYear 
+        $crlBack = $did | ConvertFrom-Json
+        Copy-Item -Force $crlBack.basePath "$($artifacts)/$($certBack.serial).crl"
+
+    
+
+        #revoke this cert
+        $certBack.serial| Out-File -FilePath "$($intCA.basePath)/revoked.txt"  -Encoding ascii -Append
+        $did = & python3 ./DoCAStuff.py --mode SignCRL --basepath $baseP --signer "Gamache FF Int CA 2018" --validfrom dtMinusTenMin --validto dtPlusOneYear 
+        $crlBack = $did | ConvertFrom-Json
+        Copy-Item -Force $crlBack.basePath "$($artifacts)/$($intCA.serial).crl"
+
+
+
+            # chips.fflab.markgamache.com 
+            $did = & python3 ./DoCAStuff.py --mode NewLeafTLS --basepath $baseP --name "chips.fflab.markgamache.com" --signer "Gamache FF Some Assurance ICA 2021" --validfrom dtMinusTenMin --validto dtPlusOneYear --keysize 2048
+            $did | ConvertFrom-Json
+
+
+        #get rid of the old CA cert
+        #ren "$($certBack.basePath)/cert.pem" "$($certBack.basePath)/certold.rem"
+        #$oldSAICACert = "$($certBack.basePath)/certold.rem"
+
         
     
     # Gamache FF Some Assurance ICA 2019  new
@@ -366,6 +404,22 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
              #  reference.fflab.markgamache.com cert is good for reference
             $did = & python3 ./DoCAStuff.py --mode NewLeafTLS --basepath $baseP --name "reference.fflab.markgamache.com" --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear --keysize 2048 
             $did | ConvertFrom-Json
+
+
+            #  burt.fflab.markgamache.com cert need to get the SN and revoke and publish
+            $did = & python3 ./DoCAStuff.py --mode NewLeafTLS --basepath $baseP --name "burt.fflab.markgamache.com" --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear --keysize 2048 
+            $did | ConvertFrom-Json
+
+            #revoke
+            #crl
+            $did.serial | Out-File -FilePath "$($certBack.basePath)/revoked.txt"  -Encoding ascii
+            
+            $did = & python3 ./DoCAStuff.py --mode SignCRL --basepath $baseP --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear 
+            $crlBack = $did | ConvertFrom-Json
+            Copy-Item -Force $crlBack.basePath "$($artifacts)/$($certBack.serial).crl"
+
+
+
 
              #  OvaltineJenkins.newpkilab.markgamache.com  
             $did = & python3 ./DoCAStuff.py --mode NewLeafTLS --basepath $baseP --name "OvaltineJenkins.newpkilab.markgamache.com" --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear --keysize 2048 
