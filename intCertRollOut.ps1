@@ -408,11 +408,12 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
 
             #  burt.fflab.markgamache.com cert need to get the SN and revoke and publish
             $did = & python3 ./DoCAStuff.py --mode NewLeafTLS --basepath $baseP --name "burt.fflab.markgamache.com" --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear --keysize 2048 
-            $did | ConvertFrom-Json
+            $thecert =  $did | ConvertFrom-Json
+            $thecert
 
             #revoke
             #crl
-            $did.serial | Out-File -FilePath "$($certBack.basePath)/revoked.txt"  -Encoding ascii
+            $thecert.serial | Out-File -FilePath "$($certBack.basePath)/revoked.txt"  -Encoding ascii -Append
             
             $did = & python3 ./DoCAStuff.py --mode SignCRL --basepath $baseP --signer "Gamache FF Server HA ICA" --validfrom dtMinusTenMin --validto dtPlusOneYear 
             $crlBack = $did | ConvertFrom-Json
