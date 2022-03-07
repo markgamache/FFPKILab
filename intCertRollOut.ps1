@@ -180,7 +180,7 @@ $baseHTTP = "http://pki.fflab.markgamache.com/"
 
 
         # Gamache FF Some Assurance ICA 2021  old
-        $did = & python3 ./DoCAStuff.py --mode NewSubCA --basepath $baseP --name "Gamache FF Some Assurance ICA 2021" --signer "Gamache FF Int CA 2018" --validfrom janOf2018 --validto marchOf2018 --keysize 2048 --pathlength 0
+        $did = & python3 ./DoCAStuff.py --mode NewSubCA --basepath $baseP --name "Gamache FF Some Assurance ICA 2021" --signer "Gamache FF Int CA 2018" --validfrom janOf2018 --validto dtPlusOneYear --keysize 2048 --pathlength 0
         $certBack = $did | ConvertFrom-Json
 
         #AIA
